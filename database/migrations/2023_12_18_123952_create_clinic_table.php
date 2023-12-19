@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('clinics', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->enum('roles', ['admin', 'users']);
-            $table->rememberToken();
+            $table->string('nama');
+            $table->enum('kategori', ['Rumah Sakit', 'Klinik', 'Praktek Dokter']);
+            $table->string('alamat');
+            $table->string('image')->nullable();
+            $table->time('jam_buka');
+            $table->time('jam_tutup');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('clinics');
     }
 };

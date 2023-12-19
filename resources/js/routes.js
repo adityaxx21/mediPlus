@@ -1,21 +1,28 @@
-import AllProduct from './components/AllProduct.vue';
-import CreateProduct from './components/CreateProduct.vue';
-import EditProduct from './components/EditProduct.vue';
- 
+import Dashboard from './components/Dashboard.vue';
+import AllClinic from './components/Clinic/AllClinic.vue';
+import DetailClinic from './components/Clinic/DetailClinic.vue';
+import CreateClinic from './components/Clinic/CreateClinic.vue';
+
+
 export const routes = [
     {
         name: 'home',
         path: '/',
-        component: AllProduct
+        component: Dashboard
     },
     {
-        name: 'create',
-        path: '/create',
-        component: CreateProduct
+        name: 'clinic',
+        path: '/clinics',
+        component: AllClinic
     },
     {
-        name: 'edit',
-        path: '/edit/:id',
-        component: EditProduct
+        name: 'clinicDetail',
+        path: '/clinics/:id',
+        component: DetailClinic
+    },
+    {
+        name: 'clinicCreate',
+        path: '/createClinic',
+        component: CreateClinic
     }
 ];

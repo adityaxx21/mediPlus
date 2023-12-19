@@ -2,6 +2,7 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
+import 'popper.js';
 import App from './App.vue';
 import VueAxios from 'vue-axios';
 import VueRouter from 'vue-router';
