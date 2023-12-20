@@ -28,7 +28,7 @@
                                 <p class="card-text">Opening Hours: {{ clinic.jam_buka }} - {{ clinic.jam_tutup }}</p>
 
                                 <div class="btn-group" role="group">
-                                    <router-link :to="{ name: 'edit', params: { id: clinic.id } }"
+                                    <router-link :to="{ name: 'editClinic', params: { id: clinic.id } }"
                                         class="btn btn-success">Edit</router-link>
                                     <button class="btn btn-danger" @click="deleteClinic(clinic.id)">Delete</button>
                                 </div>
@@ -58,8 +58,13 @@ export default {
     },
     methods: {
         fetchClinics() {
+            const token = localStorage.getItem('access_token');
             this.axios
-                .get('/api/clinics/')
+                .get('/api/clinics/', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                })
                 .then(response => {
                     this.clinics = response?.data?.data;
 
@@ -69,8 +74,13 @@ export default {
                 });
         },
         deleteClinic(id) {
+            const token = localStorage.getItem('access_token');
             this.axios
-                .delete(`/api/clinics/${id}`)
+                .delete(`/api/clinics/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                })
                 .then(response => {
                     window.location.reload();
                 });

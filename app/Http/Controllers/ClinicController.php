@@ -13,7 +13,7 @@ class ClinicController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {        
         if (!auth()->user()->is_admin) {
             return responses(403, null, null);
         }

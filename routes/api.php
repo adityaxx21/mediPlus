@@ -14,7 +14,7 @@ Route::middleware('api')->group(function () {
 });
 
 
-// Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     
     // Clinics REST
     Route::resource('clinics', ClinicController::class);
@@ -28,4 +28,4 @@ Route::middleware('api')->group(function () {
     Route::get('/antrians/clinics/{idClinic}', [AntrianController::class, 'antrianClinic']);
     Route::get('/antrians/clinics/{idClinic}/users/{idUser}', [AntrianController::class, 'antrianUser']);
     Route::post('/createBooking', [AntrianController::class, 'createBooking']);
-// });
+});

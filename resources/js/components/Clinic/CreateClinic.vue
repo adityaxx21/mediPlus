@@ -58,9 +58,14 @@ export default {
     },
     methods: {
         submitForm() {
-            console.log(this.clinic);
+            const token = localStorage.getItem('access_token');
             this.axios
-                .post('/api/clinics', this.clinic)
+                .post('/api/clinics', this.clinic, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json', // Add other headers as needed
+                    },
+                })
                 .then(response => {
                     // Handle success, you can redirect or show a success message
                     this.$router.push({ name: 'clinic' })

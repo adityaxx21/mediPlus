@@ -1,19 +1,5 @@
 <template>
     <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card">
-                    <img :src="clinic.image" class="card-img-top" alt="Clinic Image">
-                    <div class="card-body">
-                        <h2 class="card-title">{{ clinic.nama }}</h2>
-                        <p class="card-text">{{ clinic.kategori }}</p>
-                        <p class="card-text">{{ clinic.alamat }}</p>
-                        <p class="card-text">Opening Hours: {{ clinic.jam_buka }} - {{ clinic.jam_tutup }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="row" :class="{ 'mt-4': hasAntrians, 'mt-2': !hasAntrians }">
             <template v-if="antrians.data && antrians.data.length > 0">
                 <div v-for="antrian in antrians.data" :key="antrian.id" class="col-md-4 mb-4">
@@ -42,28 +28,8 @@
 export default {
     data() {
         return {
-            clinic: {},
             antrians: [],
         };
-    },
-    mounted() {
-        const clinicId = this.$route.params.id;
-        const token = localStorage.getItem('access_token');
-
-        // Make the request using Axios to get clinic details based on the ID
-        this.axios
-            .get(`/api/clinics/${clinicId}`, {
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                    'Content-Type': 'application/json', // Add other headers as needed
-                },
-            })
-            .then(response => {
-                this.clinic = response?.data?.data?.data;
-            })
-            .catch(error => {
-                console.error('Error fetching clinic details:', error);
-            });
     },
     computed: {
         hasAntrians() {
@@ -71,16 +37,11 @@ export default {
         },
     },
     created() {
-        const clinicId = this.$route.params.id;
-        const token = localStorage.getItem('access_token');
+        const clinicId = this.$route.params.clinicId;
+        const userId = this.$route.params.userId;
 
         this.axios
-            .get(`/api/antrians/clinics/${clinicId}`, {
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                    'Content-Type': 'application/json', // Add other headers as needed
-                },
-            })
+            .get(`/api/antrians/clinics/${clinicId}/users/${userId}`)
             .then(response => {
                 this.antrians = response?.data?.data;
                 console.log(this.antrians);
